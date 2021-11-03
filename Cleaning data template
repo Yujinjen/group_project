@@ -1,0 +1,30 @@
+library(tidyverse)
+
+cleveland_data<-read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data",
+         col_names=c("age","sex","cp","trestbps","chol","fbs","restecg","thalach","exang","oldpeak","slope","ca","thal","num"))
+cleveland_data
+hungarian_data<-read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.hungarian.data",
+         col_names=c("age","sex","cp","trestbps","chol","fbs","restecg","thalach","exang","oldpeak","slope","ca","thal","num"))#%>%
+         #this part is not necessary but if want to look tidier this works too: 
+#mutate(slope=as.double(slope))%>%
+#mutate(trestbps=as.double(trestbps))%>%
+#mutate(chol=as.double(chol))%>%
+#mutate(fbs=as.double(fbs))%>%
+#mutate(restecg=as.double(restecg))%>%
+#mutate(thalach=as.double(thalach))%>%
+#mutate(exang=as.double(exang))
+hungarian_data
+switzerland_data<-read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.switzerland.data",
+         col_names=c("age","sex","cp","trestbps","chol","fbs","restecg","thalach","exang","oldpeak","slope","ca","thal","num"))
+switzerland_data
+
+filtered_data_c<-select(cleveland_data,age,trestbps,chol,thalach,oldpeak,ca,num)
+filtered_data_c
+
+total_data<-rbind(cleveland_data,hungarian_data,switzerland_data)
+total_data
+
+total_filtered_data<-total_data%>%
+select(age,trestbps,chol,thalach,oldpeak,ca,num)%>%#selectedonly6categories
+filter(num==0|num==1)#dunnowhat3and2meansofilteredthemout
+total_filtered_data
